@@ -1,0 +1,94 @@
+#自定义配置信息 
+hello: hello,boot
+appId: 1014715173170053120
+appSecret: 5cf9166045ef9293b21f201bcc8852ba
+specific:
+  flag: false
+  sleepTime: 100
+  #list信息
+  testList:
+    - list1
+    - list2
+  #加密盐值
+  msg: ${msg} 
+  #map信息
+  testMap:
+    key1: 这是key1
+    key2: 这是key2
+
+server:
+  port: 8081
+
+#注册中心配置 
+eureka: 
+  instance: 
+    preferIpAddress: true
+    instance-id: ${spring.cloud.client.ipAddress}:${server.port}
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8801/eureka/    
+
+#日志配置
+logging:
+  #config: classpath:logback-dev.xml
+  level: info
+    #test.boot.dao: debug
+#开启熔断器
+feign:
+  hystrix:
+    enabled: true
+hystrix: 
+  command:
+    default:
+      execution:
+        isolation: 
+          thread: 
+            #超时设置
+            timeoutInMilliseconds: 5000
+#spring配置
+spring:
+  application: 
+    name: TEST
+  #数据源配置
+  datasource:
+    url: jdbc:mysql://rm-bp167v39m44a2ygxqo.mysql.rds.aliyuncs.com/mtva-dev?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    username: pppcar_dev
+    password: 3pcardevdbmms12#
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    connectionProperties: druid.stat.mergeSql=true 
+#redis配置
+  redis:
+    host: 47.94.45.117
+    port: 6379
+    password: remuszpj
+    timeout: 0
+    protectedMode: no 
+    pool:
+      maxActive: 8
+      maxWait: -1
+      maxIdle: 8
+      minIdle: 0
+#rabbitmq连接信息配置
+  rabbitmq:
+    host: 106.15.177.209
+    port: 5672
+    username: hardill
+    password: 1212520
+mybatis:
+  #实体类所做包
+  type-aliases-package: test.boot.domain
+  #mapper.xml所在位置
+  mapper-locations: classpath:mappers/*.xml 
+  configuration:
+    mapUnderscoreToCamelCase: true
+mapper:
+  mappers: test.BaseMapper
+  identity: MYSQL
+
+#分页插件
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count :countSql   

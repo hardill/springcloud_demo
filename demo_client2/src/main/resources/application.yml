@@ -1,0 +1,84 @@
+#自定义配置信息 
+hello: hello,i am boot
+appId: 1014715046351077376
+appSecret: c17679d0d1be7a7efda467dbf7fe298e
+
+server:
+  port: 8083
+
+#注册中心配置 
+eureka: 
+  instance: 
+    preferIpAddress: true
+    instance-id: ${spring.cloud.client.ipAddress}:${server.port}
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8801/eureka/  
+#开启熔断器  
+feign:
+  hystrix:
+    enabled: true
+hystrix: 
+  command:
+    default:
+      execution:
+        isolation: 
+          thread: 
+            #超时设置
+            timeoutInMilliseconds: 5000
+#日志配置
+logging:
+  level: info
+spring:
+  application: 
+    name: TEST2
+  #数据源配置
+  datasource:
+    url: jdbc:mysql://rm-bp167v39m44a2ygxqo.mysql.rds.aliyuncs.com/mtva-dev?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    username: pppcar_dev
+    password: 3pcardevdbmms12#
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    connectionProperties: druid.stat.mergeSql=true 
+#redis配置
+  redis:
+    host: 47.94.45.117
+    port: 6379
+    password: remuszpj
+    timeout: 0
+    protectedMode: no 
+    pool:
+      maxActive: 8
+      maxWait: -1
+      maxIdle: 8
+      minIdle: 0
+#rabbitmq连接信息配置
+  rabbitmq:
+    host: 106.15.177.209
+    port: 5672
+    username: hardill
+    password: 1212520
+      
+mybatis:
+  #实体类所做包
+  type-aliases-package: test.boot.domain
+  #mapper.xml所在位置
+  mapper-locations: classpath:mappers/*.xml 
+  configuration:
+    mapUnderscoreToCamelCase: true
+mapper:
+  mappers: test.BaseMapper
+  identity: MYSQL
+
+#分页插件
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count :countSql 
+
+
+
+
+
+  
